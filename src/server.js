@@ -4,6 +4,7 @@ import { db } from "./config/db.js";
 import { favoritesTable } from "./db/schema.js";
 import { and, eq } from "drizzle-orm";
 import job from "./config/cron.js";
+import cors from "cors";
 
 const app = express();
 const PORT = ENV.PORT || 5001;
@@ -11,6 +12,7 @@ const PORT = ENV.PORT || 5001;
 if (ENV.NODE_ENV === "production") job.start();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({ success: true });
